@@ -702,9 +702,9 @@ class OpTestConfiguration():
                         " flash-skiboot={}"
                         .format(self.args.flash_skiboot))
                 if self.args.flash_kernel is None \
-                    or not os.access(self.args.flash_kernel, os.R_OK|os.W_OK):
+                    or not os.access(self.args.flash_kernel, os.R_OK):
                     raise ParameterCheck(message="Check that the file exists with"
-                        " R/W permissions"
+                        " R permissions"
                         " flash-kernel={}"
                         .format(self.args.flash_kernel))
                 bmc = OpTestMambo(mambo_binary=self.args.mambo_binary,
