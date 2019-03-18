@@ -118,6 +118,18 @@ class KernelLog():
                       "mlx4_en.* Port \d+: Initializing port",
                       "mlx4_core.*Old device ETS support detected",
                       "mlx4_core.*Consider upgrading device FW.",
+                      # Lock testing prints at pr_err, we should consider fixing upstream
+                      ":.*(  ok  |)+",
+                      "---------------------(---)?",
+                      "---------------------------------",
+                      "-----------------------------------------------------",
+                      "(--)?-----------------------------------------------------",
+                      "(--)?--------------------------------------------------------------------------",
+                      "| Wound/wait tests |",
+                      "|block | try  |context|",
+                      "Good, all \d+ testcases passed! |",
+                      "rbtree testing",
+                      "-> test \d+ \(.*\): \d+ cycles",
         ]
 
         if self.bmc_type in ['qemu']:
