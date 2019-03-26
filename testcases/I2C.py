@@ -150,7 +150,7 @@ class I2C():
                   address.
         :raises: :class:`common.Exceptions.CommandFailed`
         '''
-        l_res = self.c.run_command("find /sys/ -name eeprom")
+        l_res = self.c.run_command("find /sys/ -name eeprom", timeout=3600)
         l_chips = []
         for l_line in l_res:
             if l_line.__contains__("eeprom"):
