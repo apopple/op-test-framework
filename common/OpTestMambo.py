@@ -130,9 +130,9 @@ class MamboConsole():
 
         log.debug("#Mambo Console CONNECT")
 
-        if not os.access(self.mambo_initial_run_script, os.R_OK|os.W_OK):
+        if not os.access(self.mambo_initial_run_script, os.R_OK):
             raise ParameterCheck(message="Check that the file exists with"
-                " R/W permissions mambo-initial-run-script={}"
+                " R permissions mambo-initial-run-script={}"
                 .format(self.mambo_initial_run_script))
 
         cmd = ("%s" % (self.mambo_binary)
