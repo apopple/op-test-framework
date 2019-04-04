@@ -53,7 +53,7 @@ qemu_default = "qemu-system-ppc64"
 mambo_default = "/opt/ibm/systemsim-p9/run/p9/power9"
 mambo_initial_run_script = "skiboot.tcl"
 mambo_autorun = "1"
-mambo_timeout_factor = 2
+mambo_timeout_factor = 60
 
 # HostLocker credentials need to be in Notes Web section ('comment' section of JSON)
 # bmc_type:OpenBMC
@@ -281,7 +281,7 @@ def get_parser():
     gitgroup.add_argument("--git-branch", help="git branch to be used", default="master")
     gitgroup.add_argument("--git-home", help="home path for git repository", default="/home/ci")
     gitgroup.add_argument("--git-patch", help="patch to be applied on top of the git repository", default=None)
-    
+
     imagegroup = parser.add_argument_group('Images', 'Firmware LIDs/images to flash')
     imagegroup.add_argument("--bmc-image", help="BMC image to flash(*.tar in OpenBMC, *.bin in SMC)")
     imagegroup.add_argument("--host-pnor", help="PNOR image to flash")
