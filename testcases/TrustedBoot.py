@@ -75,7 +75,7 @@ class TrustedBoot(unittest.TestCase):
         c = self.cv_SYSTEM.console
         self.cpu = ''.join(c.run_command("grep '^cpu' /proc/cpuinfo |uniq|sed -e 's/^.*: //;s/[,]* .*//;'"))
         log.debug(self.cpu)
-        if self.cpu in ["POWER9"]:
+        if self.cpu in ["POWER9", "POWER10"]:
             part_list = ["CAPP", "IMA_CATALOG", "BOOTKERNEL", "VERSION"]
         elif self.cpu in ["POWER8"]:
             part_list = ["CAPP", "BOOTKERNEL"]

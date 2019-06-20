@@ -118,7 +118,7 @@ class OpTestFastReboot(unittest.TestCase):
         cpu = ''.join(c.run_command(
             "grep '^cpu' /proc/cpuinfo|uniq|sed -e 's/^.*: //;s/[,]* .*//;'"))
         log.debug(repr(cpu))
-        if cpu not in ["POWER9", "POWER8", "POWER8E"]:
+        if cpu not in ["POWER10", "POWER9", "POWER8", "POWER8E"]:
             self.skipTest("Fast Reboot not supported on %s" % cpu)
 
         if not self.cv_SYSTEM.has_mtd_pnor_access():

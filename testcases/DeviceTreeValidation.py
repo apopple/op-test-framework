@@ -137,7 +137,7 @@ class DeviceTreeValidation(unittest.TestCase):
             has_stop_inst = False
             control_prop = "ibm,opal/power-mgt/ibm,cpu-idle-state-pmicr"
             mask_prop = "ibm,opal/power-mgt/ibm,cpu-idle-state-pmicr-mask"
-        elif "POWER9" in self.cv_HOST.host_get_proc_gen(console=1):
+        elif self.cv_HOST.host_get_proc_gen(console=1) in ["POWER9", "POWER10"]:
             has_stop_inst = True
             control_prop = "ibm,opal/power-mgt/ibm,cpu-idle-state-psscr"
             mask_prop = "ibm,opal/power-mgt/ibm,cpu-idle-state-psscr-mask"
@@ -216,7 +216,7 @@ class DeviceTreeValidation(unittest.TestCase):
             if self.cv_HOST.host_get_proc_gen(console=1) in ["POWER8", "POWER8E"]:
                 self.assertTrue(False, "pstates range {} is not valid".format(
                     nr_pstates))
-            elif "POWER9" in self.cv_HOST.host_get_proc_gen(console=1):
+            elif self.cv_HOST.host_get_proc_gen(console=1) in ["POWER9", "POWER10"]:
                 self.assertTrue(False, "More than 128 pstates found {}"
                                 "in pstate table".format(nr_pstates))
 
@@ -231,7 +231,7 @@ class DeviceTreeValidation(unittest.TestCase):
                 id_list.append(self.twos_comp(int(id, 16), 32))
             self.assertTrue(self.strictly_decreasing(id_list),
                             "Non monotonocity observed for pstate ids")
-        elif "POWER9" in self.cv_HOST.host_get_proc_gen(console=1):
+        elif self.cv_HOST.host_get_proc_gen(console=1) in ["POWER9", "POWER10"]:
             self.assertTrue(self.strictly_increasing(pstate_ids),
                             "Non monotonocity observed for pstate ids")
 
@@ -378,7 +378,7 @@ class DeviceTreeValidationSkiroot(DeviceTreeValidation):
         # goto PS before running any commands
         self.cv_SYSTEM.goto_state(OpSystemState.PETITBOOT_SHELL)
         if self.cv_HOST.host_get_proc_gen(console=1) not in ["POWER8", "POWER8E",
-                                                    "POWER9"]:
+                                                             "POWER9", "POWER10"]:
             self.skipTest("Unknown CPU type {}".format(
                 self.cv_HOST.host_get_proc_gen(console=1)))
 
@@ -408,7 +408,7 @@ class DeviceTreeValidationHost(DeviceTreeValidation):
         # goto OS before running any commands
         self.cv_SYSTEM.goto_state(OpSystemState.OS)
         if self.cv_HOST.host_get_proc_gen(console=1) not in ["POWER8", "POWER8E",
-                                                    "POWER9"]:
+                                                             "POWER9", "POWER10"]:
             self.skipTest("Unknown CPU type {}".format(
                 self.cv_HOST.host_get_proc_gen(console=1)))
 

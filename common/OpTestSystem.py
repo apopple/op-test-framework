@@ -308,7 +308,7 @@ class OpTestSystem(object):
 
     def has_centaurs_in_dt(self):
         proc_gen = self.host().host_get_proc_gen()
-        if proc_gen in ["POWER9"]:
+        if proc_gen in ["POWER9", "POWER10"]:
             return False
         return True
 

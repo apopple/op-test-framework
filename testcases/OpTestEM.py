@@ -310,7 +310,7 @@ class slw_info(OpTestEM, unittest.TestCase):
         try:
             if proc_gen in ["POWER8", "POWER8E"]:
                 self.c.run_command("cat /sys/firmware/opal/msglog | grep -i slw")
-            elif proc_gen in ["POWER9"]:
+            elif proc_gen in ["POWER9", "POWER10"]:
                 self.c.run_command("cat /sys/firmware/opal/msglog | grep -i stop")
         except CommandFailed as cf:
             pass # we may have no slw entries in msglog
@@ -441,7 +441,7 @@ class cpu_boost_freqs_host(OpTestEM, DeviceTreeValidation, unittest.TestCase):
 
 	# In P9 check for stop5
         proc_gen = self.cv_HOST.host_get_proc_gen()
-        if proc_gen in ["POWER9"]:
+        if proc_gen in ["POWER9", "POWER10"]:
 	    try:
 	        self.c.run_command("grep stop5 /sys/devices/system/cpu/cpu%s/cpuidle/state*/name" % cpu_num)
 	    except CommandFailed:

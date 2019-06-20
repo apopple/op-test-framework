@@ -213,7 +213,7 @@ class OpTestHMIHandling(unittest.TestCase):
     def form_scom_addr(self, addr, core):
         if self.proc_gen in ["POWER8", "POWER8E"]:
             val = addr[0]+str(core)+addr[2:]
-        elif self.proc_gen in ["POWER9"]:
+        elif self.proc_gen in ["POWER9", "POWER10"]:
             val = hex(eval("0x%s | (((%s & 0x1f) + 0x20) << 24)" % (addr, int(core, 16))))
             log.debug(val)
         return val
@@ -384,7 +384,7 @@ class OpTestHMIHandling(unittest.TestCase):
         and also this function injecting error on all the cpus one by one and
         verify whether cpu is recovered or not.
         '''
-        if self.proc_gen in ["POWER9"]:
+        if self.proc_gen in ["POWER9", "POWER10"]:
             scom_addr = "20010A40"
         elif self.proc_gen in ["POWER8", "POWER8E"]:
             scom_addr = "10013100"
@@ -466,7 +466,7 @@ class OpTestHMIHandling(unittest.TestCase):
         A processor core in the system has to be checkstopped (failed recovery).
         Injecting core checkstop on random core of random chip
         '''
-        if self.proc_gen in ["POWER9"]:
+        if self.proc_gen in ["POWER9", "POWER10"]:
             scom_addr = "20010A40"
         elif self.proc_gen in ["POWER8", "POWER8E"]:
             scom_addr = "10013100"
@@ -499,7 +499,7 @@ class OpTestHMIHandling(unittest.TestCase):
         This function is used to test HMI: Hypervisor resource error
         Injecting Hypervisor resource error on random core of random chip
         '''
-        if self.proc_gen in ["POWER9"]:
+        if self.proc_gen in ["POWER9", "POWER10"]:
             scom_addr = "20010A40"
         elif self.proc_gen in ["POWER8", "POWER8E"]:
             scom_addr = "10013100"
@@ -538,7 +538,7 @@ class OpTestHMIHandling(unittest.TestCase):
         - BMC_CONST.TFMR_PURR_PARITY_ERROR
         - BMC_CONST.TFMR_SPURR_PARITY_ERROR
         '''
-        if self.proc_gen in ["POWER9"]:
+        if self.proc_gen in ["POWER9", "POWER10"]:
             scom_addr = "20010A84"
         elif self.proc_gen in ["POWER8", "POWER8E"]:
             scom_addr = "10013281"

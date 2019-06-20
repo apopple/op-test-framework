@@ -78,7 +78,7 @@ class OpalUtils(unittest.TestCase):
             self.c.run_command(BMC_CONST.DISABLE_CPU_SLEEP_STATE1)
             self.c.run_command(BMC_CONST.DISABLE_CPU_SLEEP_STATE2)
 
-        if self.cpu in ["POWER9"]:
+        if self.cpu in ["POWER9", "POWER10"]:
             pass
             # TODO: Disable stop states here in P9
 
@@ -86,7 +86,7 @@ class OpalUtils(unittest.TestCase):
         if self.cpu in ["POWER8", "POWER8E"]:
             self.IPOLL_MASK_REGISTER = "0x01020013"
 
-        if self.cpu in ["POWER9"]:
+        if self.cpu in ["POWER9", "POWER10"]:
             self.IPOLL_MASK_REGISTER = "0xF0033"
 
         cmd = "PATH=/usr/local/sbin:$PATH getscom -c 0x0 %s" % self.IPOLL_MASK_REGISTER
@@ -108,7 +108,7 @@ class OpalUtils(unittest.TestCase):
         if self.cpu in ["POWER8", "POWER8E"]:
             self.TFMR_PURR_REGISTER = "1%s013281" % core
 
-        if self.cpu in ["POWER9"]:
+        if self.cpu in ["POWER9", "POWER10"]:
             self.DOORBELL_REG = "D0063"
             value = "0x0800000000000000"
             cmd = "PATH=/usr/local/sbin:$PATH putscom -c %s %s %s" % (chip, self.DOORBELL_REG, value)
@@ -204,7 +204,7 @@ class OpalUtils(unittest.TestCase):
         self.c.run_command("dmesg -D")
         self.cpu = self.cv_HOST.host_get_proc_gen()
 
-        if self.cpu not in ["POWER8", "POWER8E", "POWER9"]:
+        if self.cpu not in ["POWER8", "POWER8E", "POWER9", "POWER10"]:
             self.skipTest("Unknown CPU type %s" % self.cpu)
 
         self.disable_cpu_sleepstates()

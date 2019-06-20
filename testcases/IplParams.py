@@ -77,10 +77,11 @@ class IplParams():
                                 "fw-ltptr-serialized", "inst-l1d-flush-trig2", "fw-l1d-thread-split", "user-mode-branch-speculation"]
 
         self.cpu = ''.join(self.c.run_command("grep '^cpu' /proc/cpuinfo |uniq|sed -e 's/^.*: //;s/[,]* .*//;'"))
-        if self.cpu in ["POWER9"]:
-            self.revision = ''.join(self.c.run_command("grep '^revision' /proc/cpuinfo |uniq|sed -e 's/^.*: //;s/ (.*)//;'"))
-            if not self.revision in ["2.2", "2.3"]:
-                return {}
+        if self.cpu in ["POWER9", "POWER10"]:
+            if self.cpu == "POWER9":
+                self.revision = ''.join(self.c.run_command("grep '^revision' /proc/cpuinfo |uniq|sed -e 's/^.*: //;s/ (.*)//;'"))
+                if not self.revision in ["2.2", "2.3"]:
+                    return {}
             rl = 0
             try:
                 self.c.run_command("ls --color=never /proc/device-tree/ipl-params/sys-params/elevated-risk-level")
