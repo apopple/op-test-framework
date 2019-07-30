@@ -377,19 +377,18 @@ class DeviceTreeValidationSkiroot(DeviceTreeValidation):
     def runTest(self):
         # goto PS before running any commands
         self.cv_SYSTEM.goto_state(OpSystemState.PETITBOOT_SHELL)
-        if self.cv_HOST.host_get_proc_gen(console=1) not in ["POWER8", "POWER8E",
-                                                             "POWER9", "POWER10"]:
-            self.skipTest("Unknown CPU type {}".format(
-                self.cv_HOST.host_get_proc_gen(console=1)))
+        proc_gen = self.cv_HOST.host_get_proc_gen(console=1)
+        if proc_gen not in ["POWER8", "POWER8E", "POWER9", "POWER10"]:
+            self.skipTest("Unknown CPU type {}".format(proc_gen))
 
         system_state = self.cv_SYSTEM.get_state()
         self.c = self.cv_SYSTEM.console
         if isinstance(self.c, OpTestQemu.QemuConsole):
             raise self.skipTest("OpTestSystem running QEMU so comparing "
                                 "Skiroot to Host is not applicable")
-        self.cv_HOST.host_get_proc_gen(console=1)
         self.validate_idle_state_properties()
-        self.validate_pstate_properties()
+        if proc_gen not in ["POWER10"]:
+            self.validate_pstate_properties()
 
         # Validate ibm,opal node DT content at skiroot against host
         # We can extend for other nodes as well, which are suspicieous.

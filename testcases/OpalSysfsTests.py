@@ -107,7 +107,7 @@ class OpalSysfsTests():
     def test_opal_powercap(self):
         self.setup_test()
         self.get_proc_gen()
-        if self.cpu not in ["POWER9", "POWER10"]:
+        if self.cpu not in ["POWER9"]:
             return
         cur_powercap = int(self.c.run_command("cat %s" % str(POWERCAP_CURRENT))[-1])
         max_powercap = int(self.c.run_command("cat %s" % str(POWERCAP_MAX))[-1])
@@ -131,7 +131,7 @@ class OpalSysfsTests():
     def test_opal_psr(self):
         self.setup_test()
         self.get_proc_gen()
-        if self.cpu not in ["POWER9", "POWER10"]:
+        if self.cpu not in ["POWER9"]:
             return
         list = self.c.run_command("ls --color=never -1 %s" % str(OPAL_PSR))
         for entry in list:
@@ -144,8 +144,8 @@ class OpalSysfsTests():
     def test_opal_sensor_groups(self):
         self.setup_test()
         self.get_proc_gen()
-	log.debug(repr(self.cpu))
-        if self.cpu not in ["POWER9", "POWER10"]:
+        log.debug(repr(self.cpu))
+        if self.cpu not in ["POWER9"]:
             return
         list = self.c.run_command("ls --color=never -1 %s" % str(OPAL_SENSOR_GROUPS))
         for entry in list:
